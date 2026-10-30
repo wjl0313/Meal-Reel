@@ -157,6 +157,9 @@ python3 tools/fetch_ffmpeg.py     # 下载带 libass 的静态构建到 vendor/f
 不要编造成片路径或"部署成功"的结论。
 ```
 
+> Windows 上没有 bash：把上面第 6 步的 `./daily.sh --slot dinner` 换成
+> `python run.py --user U001 --slot dinner`，其余步骤完全一样。
+
 这段之所以这么写，是因为这个项目出过两类"看起来成功"的故障：字幕静默丢失、
 密钥格式对但调用失败。所以每步都要求**用命令验证**而不是看退出码。
 
