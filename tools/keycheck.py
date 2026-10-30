@@ -13,7 +13,7 @@
 
 用法：
     python tools/keycheck.py                            # 测 .env 里的凭据
-    python tools/keycheck.py 9617026716:xxxxx           # 测 APP ID + Token
+    python tools/keycheck.py <APP_ID>:xxxxx           # 测 APP ID + Token
     python tools/keycheck.py xxxxxxxx-xxxx-...          # 测 UUID API Key
     python tools/keycheck.py a:b c:d uuid --all         # 一次测多组
 
@@ -142,7 +142,7 @@ def main():
             candidates.append({"mode": "key", "api_key": key})
         if not candidates:
             print("没找到语音凭据。两种写法任选：")
-            print("  python tools/keycheck.py 9617026716:<access_token>")
+            print("  python tools/keycheck.py <APP_ID>:<access_token>")
             print("  python tools/keycheck.py <uuid-api-key>")
             return 2
 
