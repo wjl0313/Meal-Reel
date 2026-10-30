@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>每日饮食 · 配置后台</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <h1>每日饮食</h1>
+    <span class="sub">配置后台</span>
+  </div>
+  <div class="chips-status" id="status"></div>
+  <div class="spacer"></div>
+  <div class="actions">
+    <button class="btn ghost sm" id="btn-reload" title="重新读取配置与库存">重新载入</button>
+    <button class="btn primary" id="btn-save">保存配置</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ 左栏：参数 ============ -->
+  <div class="col left">
+
+    <section class="card">
+      <header>
+        <h2>推荐方式</h2>
+        <span class="spacer"></span>
+        <span class="hint">决定菜从哪来</span>
+      </header>
+      <div class="body">
+        <div class="field">
+          <div class="seg" id="mode">
+            <button data-v="recipe" aria-pressed="true">真实菜谱 · 可平替</button>
+            <button data-v="combo" aria-pressed="false">库存组合</button>
+          </div>
+          <div class="muted" style="font-size:12px;margin-top:8px;line-height:1.55" id="mode-desc"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h2>菜谱类型</h2>
+        <span class="spacer"></span>
+        <span class="hint">可多选，至少选一个</span>
+      </header>
+      <div class="body tight">
+        <div class="chips" id="cats"></div>
+
+        <div class="field" style="margin-top:14px">
+          <label class="lbl">营养标准<span class="tip">按哪套标准打分；混选时建议钉死在减脂</span></label>
+          <div class="chips" id="target_category"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header><h2>筛选条件</h2></header>
+      <div class="body">
+        <div class="field">
+          <label class="lbl">餐次</label>
+          <div class="chips" id="slots"></div>
+        </div>
+
+        <div class="field">
+          <label class="lbl">单餐预算<span class="tip">超过预算的菜直接不参与排序</span></label>
+          <div class="range">
+            <input type="range" id="budget" min="3" max="120" step="1">
+            <span class="val" id="budget-v"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="lbl">最长用时<span class="tip">今晚来不及的直接筛掉</span></label>
+          <div class="range">
+            <input type="range" id="max_minutes" min="10" max="150" step="5">
+            <span class="val" id="max_minutes-v"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="lbl">不重样<span class="tip">同一道菜多少天内不再出现；0 = 不限制</span></label>
+          <div class="range">
+            <input type="range" id="repeat_cooldown_days" min="0" max="180" step="5">
+            <span class="val" id="repeat_cooldown_days-v"></span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="lbl">选菜方式<span class="tip">随机 = 每天不一样；最高分 = 永远同一道</span></label>
+          <div class="chips" id="pick"></div>
+        </div>
+
+        <div class="field">
+          <label class="lbl">忌口 / 过敏原<span class="tip">命中即淘汰，任何理由不能覆盖</span></label>
+          <textarea id="exclude" rows="2" placeholder="每行一个，或用逗号分隔，例如：虾、花生"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h2>菜系 / 做法 / 口味</h2>
+        <span class="spacer"></span>
+        <span class="hint">不选 = 不限</span>
+      </header>
+      <div class="body">
+        <div class="field">
+          <label class="lbl">菜系</label>
+          <div class="chips" id="cuisines"></div>
+        </div>
+        <div class="field">
+          <label class="lbl">做法</label>
+          <div class="chips" id="methods"></div>
+        </div>
+        <div class="field">
+          <label class="lbl">口味</label>
+          <div class="chips" id="flavors"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header><h2>配音</h2></header>
+      <div class="body">
+        <div class="field">
+          <label class="lbl">引擎</label>
+          <div class="seg" id="tts-engine">
+            <button data-v="auto" aria-pressed="true">真声优先</button>
+            <button data-v="doubao" aria-pressed="false">只用真声</button>
+            <button data-v="mock" aria-pressed="false">占位音轨</button>
+          </div>
+          <div class="muted" style="font-size:12px;margin-top:7px;line-height:1.5">
+            「真声优先」在语音不可用时自动降级为占位音轨，并在 manifest 里标注 degraded。
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">音色</label>
+          <select id="speaker"></select>
+        </div>
+        <div class="field">
+          <label class="lbl">自定义音色 ID<span class="tip">选了音色就不用填</span></label>
+          <input type="text" id="speaker-custom" placeholder="例如 zh_female_xxx_bigtts">
+        </div>
+        <div class="field">
+          <label class="lbl">语速</label>
+          <div class="range">
+            <input type="range" id="speed" min="0.6" max="1.6" step="0.05">
+            <span class="val" id="speed-v"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header><h2>画面与字幕</h2></header>
+      <div class="body">
+        <div class="field">
+          <label class="lbl">字幕字号<span class="tip">面向老年观众，默认 70</span></label>
+          <div class="range">
+            <input type="range" id="subs.main_size" min="40" max="110" step="2">
+            <span class="val" id="subs.main_size-v"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">标题字号</label>
+          <div class="range">
+            <input type="range" id="subs.title_size" min="28" max="80" step="2">
+            <span class="val" id="subs.title_size-v"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">字幕底框透明度<span class="tip">00 全黑 / FF 全透，默认 66</span></label>
+          <div class="range">
+            <input type="range" id="subs.box_alpha_num" min="0" max="255" step="1">
+            <span class="val" id="subs.box_alpha_num-v"></span>
+          </div>
+        </div>
+        <div class="field">
+          <label class="lbl">转场时长<span class="tip">超过 0.4s 两镜会叠影</span></label>
+          <div class="range">
+            <input type="range" id="video.transition" min="0" max="0.6" step="0.05">
+            <span class="val" id="video.transition-v"></span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="field">
+          <label class="switch"><input type="checkbox" id="video.reuse_images"><span>只用缓存的图片（不出新图、不花钱，改文案时用）</span></label>
+        </div>
+        <div class="field">
+          <label class="switch"><input type="checkbox" id="chat"><span>用模型改写文案（需已开通方舟文案模型）</span></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header><h2>库存</h2><span class="spacer"></span><span class="hint" id="inv-hint"></span></header>
+      <div class="body tight">
+        <div class="scroll">
+          <table class="inv-table" id="inv-table"></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h2>密钥与凭据</h2>
+        <span class="spacer"></span>
+        <span class="hint">只显示脱敏预览，不提供完整值</span>
+      </header>
+      <div class="body">
+        <div class="kv-grid" id="keys"></div>
+        <div class="muted" style="font-size:12px;margin-top:10px;line-height:1.6">
+          要改密钥请直接编辑 <b id="env-file">.env</b> 后重启本服务。
+          完整密钥不通过接口返回：本服务虽只监听 127.0.0.1，但没有 CSRF 防护，
+          任意本机网页都能向它发请求，能读到完整值就等于能读走你的 API Key。
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h2>当前全部参数</h2>
+        <span class="spacer"></span>
+        <span class="hint">config.json 的完整内容</span>
+      </header>
+      <div class="body tight">
+        <div class="scroll">
+          <table class="inv-table" id="cfg-table"></table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ============ 右栏：预览与出片 ============ -->
+  <div class="col right">
+
+    <section class="card">
+      <header>
+        <h2>预演</h2>
+        <span class="spacer"></span>
+        <span class="hint" id="preview-hint">不出图、不花钱，只跑筛选和打分</span>
+        <button class="btn sm" id="btn-preview">跑一次</button>
+      </header>
+      <div class="body" id="funnel-wrap" hidden>
+        <div class="funnel" id="funnel"></div>
+      </div>
+      <div class="body" id="preview">
+        <div class="empty"><b>还没有结果</b>调好左边的参数，点「跑一次」看会推哪三道菜</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header>
+        <h2>出片</h2>
+        <span class="spacer"></span>
+        <button class="btn primary" id="btn-run">开始出片</button>
+        <button class="btn sm" id="btn-stop" disabled>停止</button>
+      </header>
+      <div class="progress"><i id="bar"></i></div>
+      <div class="log" id="log">等待开始…</div>
+    </section>
+
+    <section class="card">
+      <header><h2>这一次的产物</h2></header>
+      <div class="body" id="result">
+        <div class="empty"><b>还没有成片</b>出片完成后这里会显示视频、封面和改动明细</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <header><h2>历史</h2><span class="spacer"></span><span class="hint" id="runs-hint"></span></header>
+      <div class="body tight" id="runs"></div>
+    </section>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

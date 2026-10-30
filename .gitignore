@@ -1,0 +1,28 @@
+# ---- 密钥：绝对不能进仓库 ----
+.env
+.env.*
+!.env.example
+*.key
+
+# ---- 产物：体积大，且含个人饮食与家庭数据 ----
+runs/
+cache/
+
+# ---- 下载的 ffmpeg（几十 MB），用 tools/fetch_ffmpeg.py 重建 ----
+vendor/
+
+# ---- 运行时状态：每台机器自己的历史，不该共享 ----
+data/recipe_history.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# ---- 编辑器 / 系统 ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

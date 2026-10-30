@@ -1,0 +1,43 @@
+{
+  "mode": "recipe",
+  "categories": [
+    "fat-loss",
+    "home"
+  ],
+  "target_category": "fat-loss",
+  "meal_types": [
+    "dinner"
+  ],
+  "cuisines": [],
+  "methods": [],
+  "flavors": [],
+  "max_minutes": 40,
+  "budget": 25,
+  "repeat_cooldown_days": 60,
+  "pick": "random",
+  "pick_pool": 0,
+  "exclude": [],
+  "user": "U001",
+  "slot": "dinner",
+  "inventory": "",
+  "tts": {
+    "engine": "doubao",
+    "speaker": "zh_female_xiaohe_uranus_bigtts",
+    "speed": 1.0,
+    "resource_id": "seed-tts-2.0"
+  },
+  "video": {
+    "reuse_images": false,
+    "transition": 0.3
+  },
+  "subs": {
+    "main_size": 70,
+    "title_size": 46,
+    "stat_size": 54,
+    "margin_v": 300,
+    "box_alpha": "66",
+    "wrap": 13
+  },
+  "chat": false,
+  "chat_model": "doubao-seed-2-1-pro-260915"
+}
