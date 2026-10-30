@@ -36,7 +36,7 @@ meal-reel/                  ← 仓库名；本地目录可以叫任意名字（
 ├── lib/
 │   ├── ffmpeg.sh           ← 定位带 libass 的 ffmpeg（所有脚本共用）
 │   └── notify.sh           ← 失败告警
-├── .env                    ← 密钥（★ 不要外传，见第六节）
+├── .env                    ← 密钥（★ 不要外传；已被 .gitignore，不随仓库分发）
 ├── .env.example            ← 密钥模板
 ├── data/
 │   ├── 01_食材清单_U001.csv  ← 库存清单（你填这个）
