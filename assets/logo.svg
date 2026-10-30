@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="meal-reel">
+  <title>meal-reel</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF9A3C"/>
+      <stop offset="1" stop-color="#E2451A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+
+  <g transform="translate(0,-34)">
+    <!-- 蒸汽 -->
+    <g fill="none" stroke="#FFFFFF" stroke-width="17" stroke-linecap="round" opacity="0.92">
+      <path d="M201,236 C185,214 217,196 201,174"/>
+      <path d="M256,230 C240,206 272,188 256,164"/>
+      <path d="M311,236 C295,214 327,196 311,174"/>
+    </g>
+
+    <!-- 碗身 -->
+    <path d="M122,298 A134,134 0 0 1 390,298 Z" fill="#FFFFFF"/>
+    <!-- 碗口 -->
+    <ellipse cx="256" cy="298" rx="134" ry="21" fill="#FFFFFF"/>
+    <!-- 碗足 -->
+    <rect x="216" y="424" width="80" height="15" rx="7.5" fill="#FFFFFF"/>
+
+    <!-- 播放键：一餐 + 一条短片 -->
+    <path d="M239,336 L239,396 L291,366 Z" fill="#D23E15"/>
+  </g>
+</svg>

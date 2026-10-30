@@ -1,9 +1,32 @@
-# meal-reel · 每日一菜出片工具
+<p align="center">
+  <img src="assets/logo.png" width="112" alt="meal-reel">
+</p>
 
-> meal（一餐）+ reel（短片）。每天从你的食材里选一道**不重样**的菜，拍成一条竖屏短片。
+<h1 align="center">meal-reel</h1>
 
-从你上传的食材清单出发，自动选出当天该吃的一道菜，生成 **9:16 竖屏短视频**
-（配图 + 真人配音 + 字幕）。
+<p align="center">
+  <b>每日一菜出片工具</b><br>
+  从你的食材库存里选一道 <b>不重样</b> 的菜，自动拍成一条 9:16 竖屏短片
+</p>
+
+<p align="center">
+  <a href="assets/demo/demo.mp4"><img src="assets/demo/poster.jpg" width="300" alt="示例成片：凉拌鸡丝荞麦面"></a>
+</p>
+
+<p align="center">
+  <sub>▲ 点封面播放 —— 20 秒单餐示例（凉拌鸡丝荞麦面 · 减脂餐 · 成本 ¥3）</sub>
+</p>
+
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.8%2B-3776AB?logo=python&logoColor=white">
+  <img alt="FFmpeg" src="https://img.shields.io/badge/ffmpeg-libass-0A7A3D?logo=ffmpeg&logoColor=white">
+  <img alt="License" src="https://img.shields.io/badge/License-GPL--3.0-2C6FBB">
+</p>
+
+---
+
+名字取自 meal（一餐）+ reel（短片）。从你上传的食材清单出发，自动选出当天该吃的一道菜，
+生成 **9:16 竖屏短视频**（配图 + 真人配音 + 字幕）。
 
 不需要任何 Agent，一条命令跑完。Agent 只是众多调用方之一。
 也可以开一个本地后台页面调参数、点按钮出片（见第七节）。
@@ -56,6 +79,9 @@ meal-reel/                  ← 仓库名；本地目录可以叫任意名字（
 │   ├── make_inventory.py   ← 生成示例库存
 │   └── apply_inventory.py  ← 把 *.new 覆盖到正式清单（文件被占用时用）
 ├── vendor/ffmpeg/          ← fetch_ffmpeg.py 下载的 ffmpeg（不进仓库）
+├── assets/
+│   ├── logo.svg / logo.png ← 项目图标（SVG 是源文件，改色/改形状直接改它）
+│   └── demo/               ← 演示素材：demo.mp4（20 秒示例成片）+ poster.jpg
 ├── cache/tts/              ← 语音缓存（删了只是重新生成，不丢数据）
 ├── runs/                   ← 每次出片的产物
 │   └── _cache/             ← 图片缓存（★ 注意：图片缓存在这里，不在 cache/）
